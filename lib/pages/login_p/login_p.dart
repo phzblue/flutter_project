@@ -14,22 +14,33 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(LoginC());
     return Scaffold(
+      backgroundColor: Colors.blue.shade200,
       body: Obx(
         () => Stack(
+          alignment: Alignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const InputField(),
-                const GenderPicker(),
-                Center(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        loginC.loginInProgress.value = true;
-                      },
-                      child: const Text('Login')),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.85,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const InputField(),
+                    const GenderPicker(),
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            loginC.loginInProgress.value = true;
+                          },
+                          child: const Text('Login')),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
             loginC.loginInProgress.value ? const LoginProgress() : Container()
           ],
@@ -50,19 +61,25 @@ class LoginProgress extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
             return SimpleDialog(
+              contentPadding: const EdgeInsets.all(20),
               title: const Text('Warning!'),
               children: [
                 Text(snapshot.error.toString()),
-                ElevatedButton(
-                  onPressed: () {
-                    loginC.loginInProgress.value = false;
-                  },
-                  child: const Text('Confirm'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        loginC.loginInProgress.value = false;
+                      },
+                      child: const Text('Confirm'),
+                    ),
+                  ),
                 ),
               ],
             );
           } else {
-            AutoRouter.of(context).replace(const ProfileRoute());
+            AutoRouter.of(context).push(const ProfileRoute());
             return Container();
           }
         } else {

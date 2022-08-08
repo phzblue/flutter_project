@@ -6,7 +6,7 @@ import 'package:project1/controller/rest_client.dart';
 class GlobalC extends GetxController {
   static GlobalC instance = Get.find();
 
-  Profile? profileData;
+  late Profile profileData;
 
   final _dio = Dio();
   late RestClient client;

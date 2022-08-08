@@ -9,10 +9,12 @@ class GenderPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text('Gender'),
+        const Expanded(child: Text('Gender')),
         Expanded(
+          flex: 3,
           child: Obx(
             () => DropdownButton(
+                isExpanded: true,
                 value: loginC.gender.value,
                 items: loginC.choices
                     .map((e) => DropdownMenuItem(
